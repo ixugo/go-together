@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package pb;
+
+service ImServer{
+    rpc SayHello (ImHelloRequest) returns (ImHelloReply){}
+}
+
+message ImHelloRequest{
+    string name = 1;
+}
+message ImHelloReply{
+    string message =1;
+}
