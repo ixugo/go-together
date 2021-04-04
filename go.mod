@@ -20,4 +20,5 @@ require (
 	golang.org/x/text v0.3.5 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/grpc v1.36.1
+	github.com/elastic/go-elasticsearch/v7 v7.12.0
 )
