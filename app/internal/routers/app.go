@@ -1,16 +1,17 @@
 package routers
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
+	"os"
+	"path/filepath"
 )
 
 type App struct{}
 
 func (a *App) GetDefaultInfo(c *gin.Context) {
 
-	// 请返回执行文件名
-	c.String(http.StatusOK, "........")
+	// 返回执行文件名
+	c.String(http.StatusOK, filepath.Base(os.Args[0]))
 
 }
