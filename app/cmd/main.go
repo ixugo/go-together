@@ -9,7 +9,7 @@ import (
 const addr = ":8080"
 
 func main() {
-	r := routers.NewRouter()
+	r := routers.New()
 	s := &http.Server{
 		Addr:         addr,
 		Handler:      r,

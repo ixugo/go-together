@@ -3,6 +3,7 @@ package assets
 import (
 	"fmt"
 	"sync"
+	"together/model"
 
 	"github.com/gocolly/colly/v2"
 )
@@ -12,10 +13,13 @@ type Assets interface {
 	Visit(s string) error
 	GetColly() *colly.Collector
 	New(domain ...string) Assets
+	SendData(beans []*model.Article)
+	RecvData() <-chan []*model.Article
 }
 
 type assets struct {
-	c *colly.Collector
+	c  *colly.Collector
+	ch chan []*model.Article
 }
 
 var _assets *assets
@@ -26,7 +30,8 @@ var once sync.Once
 func GetInstance() Assets {
 	once.Do(func() {
 		_assets = &assets{
-			c: new(),
+			c:  new(),
+			ch: make(chan []*model.Article, 1),
 		}
 	})
 	return _assets
@@ -45,12 +50,17 @@ func (a *assets) New(domain ...string) Assets {
 	t.OnRequest(onRequest)
 	colly.AllowedDomains(domain...)(t)
 	return &assets{
-		c: t,
+		c:  t,
+		ch: a.ch,
 	}
 }
 
 func (a *assets) GetColly() *colly.Collector {
 	return a.c
+}
+
+func (a *assets) RecvData() <-chan []*model.Article {
+	return a.ch
 }
 
 func (a *assets) GetAssets() {
@@ -63,6 +73,10 @@ func (a *assets) OnHTML(selector string, f func(*colly.HTMLElement)) {
 
 func (a *assets) Visit(s string) error {
 	return a.c.Visit(s)
+}
+
+func (a *assets) SendData(beans []*model.Article) {
+	a.ch <- beans
 }
 
 // 统一 error 处理

@@ -1,7 +1,8 @@
-package main
+package service
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 	pb "together/proto"
@@ -9,8 +10,9 @@ import (
 	"google.golang.org/grpc"
 )
 
-func main() {
-	lis, err := net.Listen("tcp", ":6161")
+func New(addr string) {
+	fmt.Println("start")
+	lis, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -20,6 +22,7 @@ func main() {
 	if err = s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
+
 }
 
 type blogServer struct {
