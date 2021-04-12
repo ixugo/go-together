@@ -6,6 +6,6 @@ import (
 )
 
 var (
-	APP_CONFIG *config.AppConfig
-	VIPER      *viper.Viper
+	AppConfig *config.AppConfig
+	Viper     *viper.Viper
 )

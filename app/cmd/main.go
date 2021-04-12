@@ -15,7 +15,7 @@ func main() {
 	initViper()
 	r := routers.New()
 	s := &http.Server{
-		Addr:         global.APP_CONFIG.Addr,
+		Addr:         global.AppConfig.Addr,
 		Handler:      r,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
@@ -45,9 +45,11 @@ func initViper() {
 		fmt.Printf("%+v", e.Op)                     // e.Op 是动作
 	})
 
-	if err := v.Unmarshal(&global.APP_CONFIG); err != nil {
+	if err := v.Unmarshal(&global.AppConfig); err != nil {
 		fmt.Println(err)
 	}
+	global.Viper = v
+
+	global.Viper.Get("server.addr")
 	fmt.Println("init viper........OK")
-	global.VIPER = v
 }
