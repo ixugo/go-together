@@ -44,6 +44,7 @@ func (a *assets) New(domain ...string) Assets {
 	t.OnError(onError)
 	t.OnRequest(onRequest)
 	colly.AllowedDomains(domain...)(t)
+	colly.AllowURLRevisit()(t)
 	return &assets{
 		c: t,
 	}
