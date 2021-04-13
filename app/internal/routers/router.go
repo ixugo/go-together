@@ -9,7 +9,7 @@ func New() *gin.Engine {
 	var app App
 	var blog Blog
 
-	v1 := r.Group("/api/v1")
+	v1 := r.Group("/v1")
 	{
 		v1.GET("/app", app.GetDefaultInfo)
 		b := v1.Group("/blog")
