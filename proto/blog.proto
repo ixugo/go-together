@@ -5,11 +5,29 @@ package pb;
 
 service BlogServer {
     rpc SayHello (HelloRequest) returns (HelloReply){}
+    rpc GetList (GetListRequest) returns (GetListReply){}
 }
 
 message HelloRequest{
-    string name = 1;
+     string name = 1;
 }
 message HelloReply{
-    string message =1;
+ string message =1;
+}
+
+message GetListRequest{
+      string url=1;
+}
+message GetListReply{
+    message Data {
+      string Img=1;
+      string Title =2;
+      string Description=3;
+      string CreateAt=4;
+      repeated string Tags=5;
+      string Category=6;
+      string link=7;
+    }
+    repeated Data data =1;
+    string next=2;
 }

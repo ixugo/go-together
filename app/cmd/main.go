@@ -10,23 +10,21 @@ import (
 
 func main() {
 	setupConfig()
-	r := routers.New()
-	s := &http.Server{
+	s := http.Server{
 		Addr:         global.AppServer.Addr,
-		Handler:      r,
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 10 * time.Second,
+		Handler:      routers.New(),
+		ReadTimeout:  global.AppServer.ReadTimeout,
+		WriteTimeout: global.AppServer.WriteTimeout,
 	}
 	s.ListenAndServe()
 }
 
-func setupConfig() error {
-	s := configs.LoadConfig("configs/")
+func setupConfig() {
+	s := configs.LoadConfig("configs/", "../../configs/")
 	err := s.Read("AppServer", &global.AppServer)
 	if err != nil {
 		panic(err)
 	}
 	global.AppServer.ReadTimeout *= time.Second
 	global.AppServer.WriteTimeout *= time.Second
-	return nil
 }

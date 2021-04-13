@@ -21,7 +21,7 @@ func LoadConfig(configs ...string) *Engine {
 	}
 	v.SetConfigType("toml")
 	if err := v.ReadInConfig(); err != nil {
-		panic(err)
+		panic(fmt.Errorf("请检查配置文件 err:%w", err))
 	}
 
 	s := Engine{v}

@@ -1,0 +1,13 @@
+[AppServer]
+    Addr = ":8080"
+    RunMode="debug"
+    ReadTimeout=10
+    WriteTimeout=10
+    BlogServerAddr = "127.0.0.1:8081"
+[BlogServer]
+    Addr = ":8081"
+    IxugoURL="localhost"
+[ImServer]
+    Addr = ":8082"
+[Log]
+    Path="logs"
