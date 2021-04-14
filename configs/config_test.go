@@ -31,5 +31,5 @@ func TestReadBlogServer(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, a)
 	require.EqualValues(t, a.Addr, ":8081")
-	require.EqualValues(t, a.IxugoURL, "localhost")
+	require.EqualValues(t, a.IxugoDomain, "localhost")
 }

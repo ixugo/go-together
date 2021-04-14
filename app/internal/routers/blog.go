@@ -20,6 +20,5 @@ func (b *Blog) GetList(c *gin.Context) {
 		})
 		return
 	}
-
 	c.JSON(http.StatusOK, data)
 }

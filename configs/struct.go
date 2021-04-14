@@ -11,8 +11,8 @@ type AppServer struct {
 }
 
 type BlogServer struct {
-	Addr     string
-	IxugoURL string
+	Addr        string
+	IxugoDomain string
 }
 
 type ImServer struct {
