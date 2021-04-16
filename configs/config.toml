@@ -7,7 +7,7 @@
 [BlogServer]
     Addr = ":8081"
     IxugoURL="localhost"
-    WangboURL = "https://chenyunxin.cn"
+    WangboDomain="https://chenyunxin.cn"
 [ImServer]
     Addr = ":8082"
 [Log]

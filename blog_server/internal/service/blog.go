@@ -11,6 +11,8 @@ func getWebsite(url string) []*pb.GetListReply_Data {
 	switch url {
 	case global.BlogServer.IxugoDomain:
 		return getIxugo(url)
+	case global.BlogServer.WangboDomain:
+		return getWangbo(url)
 	}
 	return nil
 }
@@ -53,7 +55,7 @@ func getWangbo(url string) []*pb.GetListReply_Data {
 				CreateAt:    h.ChildText(".recent-post-info div time"),
 				Tags:        []string{},
 				Category:    h.ChildText(".article-meta__categories"),
-				Link:        h.ChildAttr(".post_cover a", "href"),
+				Link:        website + h.ChildAttr(".post_cover a", "href"),
 			}
 			data = append(data, &art)
 		})

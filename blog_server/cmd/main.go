@@ -12,7 +12,7 @@ func main() {
 }
 
 func setupConfig() {
-	s := configs.LoadConfig("configs/", "../configs/")
+	s := configs.LoadConfig("configs/", "../../configs/")
 	err := s.Read("BlogServer", &global.BlogServer)
 	if err != nil {
 		panic(err)

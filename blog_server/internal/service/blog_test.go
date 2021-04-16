@@ -16,3 +16,7 @@ func TestGetIxugo(t *testing.T) {
 	data := getIxugo("localhost")
 	require.NotNil(t, data)
 }
+func TestGetWangbo(t *testing.T) {
+	data := getIxugo("https://chenyunxin.cn")
+	require.NotNil(t, data)
+}
