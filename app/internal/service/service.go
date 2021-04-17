@@ -30,6 +30,7 @@ func New(ctx context.Context) Service {
 func getClient(addr string) pb.BlogServerClient {
 	once.Do(func() {
 		fmt.Println("GRPC start")
+		// 创建 gRPC Channel 与 gRPC Server 进行通信（需服务器地址和端口作为参数）
 		conn, err := grpc.Dial(addr, grpc.WithInsecure(), grpc.WithBlock())
 		if err != nil {
 			panic(err)

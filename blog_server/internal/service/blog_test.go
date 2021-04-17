@@ -16,3 +16,7 @@ func TestGetIxugo(t *testing.T) {
 	data := getIxugo("localhost")
 	require.NotNil(t, data)
 }
+func TestGetWangbo(t *testing.T) {
+	data := getIxugo("127.0.0.1")
+	require.NotNil(t, data)
+}

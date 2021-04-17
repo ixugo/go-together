@@ -20,7 +20,7 @@ func main() {
 }
 
 func setupConfig() {
-	s := configs.LoadConfig("configs/", "../../configs/")
+	s := configs.LoadConfig("configs/", "../configs/", "../../configs/")
 	err := s.Read("AppServer", &global.AppServer)
 	if err != nil {
 		panic(err)
