@@ -27,12 +27,3 @@ func TestClient(t *testing.T) {
 	require.NotNil(t, r)
 	require.EqualValues(t, r.GetMessage(), "Hello together")
 }
-
-func TestGetList(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	s := New(ctx)
-	r, err := s.GetList("https://chenyunxin.cn")
-	require.NoError(t, err)
-	require.NotNil(t, r)
-}
