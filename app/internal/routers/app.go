@@ -1,10 +1,11 @@
 package routers
 
 import (
-	"net/http"
 	"os"
 	"path/filepath"
 	"together/app/internal/service"
+	"together/app/pkg/ierr"
+	"together/app/pkg/resp"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,14 +13,16 @@ import (
 type App struct{}
 
 func (a *App) GetDefaultInfo(c *gin.Context) {
-	// 返回执行文件名
-	c.String(http.StatusOK, filepath.Base(os.Args[0]))
+	result := make(map[string]interface{}, 2)
+	result["projectName"] = filepath.Base(os.Args[0])
 	// 检测 grpc 链接
 	s := service.New(c.Request.Context())
 	r, err := s.SayHello("together")
-	c.String(http.StatusOK, "\nGRPC \n")
 	if err != nil {
-		c.String(http.StatusOK, err.Error())
+		resp.Error(c, ierr.Grpc.WithDetails(err.Error()))
+		return
 	}
-	c.String(http.StatusOK, r.Message)
+	result["GRPC"] = "OK"
+	result["msg"] = r.Message
+	resp.OK(c, result)
 }
