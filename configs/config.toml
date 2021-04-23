@@ -6,8 +6,9 @@
     BlogServerAddr = "127.0.0.1:8081"
 [BlogServer]
     Addr = ":8081"
-    IxugoURL="localhost"
-    WangboDomain="127.0.0.1"
+    IxugoDomain="localhost"
+    WangboDomain="localhost"
+    EsAddresses= ["http://127.0.0.1:9200"]
 [ImServer]
     Addr = ":8082"
 [Log]

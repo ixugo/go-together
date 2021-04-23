@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/elastic/go-elasticsearch/v7"
+	"together/blog_server/internal/dao"
 	"together/blog_server/internal/service"
 	"together/configs"
 	"together/global"
@@ -17,4 +19,12 @@ func setupConfig() {
 	if err != nil {
 		panic(err)
 	}
+	cfg := elasticsearch.Config{
+		Addresses: global.BlogServer.EsAddresses,
+	}
+	es, err := elasticsearch.NewClient(cfg)
+	if err != nil {
+		panic(err)
+	}
+	dao.EsClient = es
 }

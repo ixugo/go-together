@@ -14,6 +14,7 @@ type BlogServer struct {
 	Addr         string
 	IxugoDomain  string
 	WangboDomain string
+	EsAddresses  []string
 }
 
 type ImServer struct {
