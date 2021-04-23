@@ -6,7 +6,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.6.1 // indirect
 	github.com/antchfx/xmlquery v1.3.5 // indirect
 	github.com/antchfx/xpath v1.1.11 // indirect
-	github.com/elastic/go-elasticsearch/v7 v7.12.0 // indirect
+	github.com/elastic/go-elasticsearch/v7 v7.12.0
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/gin-gonic/gin v1.7.1
 	github.com/gocolly/colly/v2 v2.1.0

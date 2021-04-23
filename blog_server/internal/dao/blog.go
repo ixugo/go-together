@@ -6,22 +6,12 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/elastic/go-elasticsearch/v7"
+	"together/blog_server/internal/model"
 	pb "together/proto"
 	"together/utils"
 )
 
 var EsClient *elasticsearch.Client
-
-func init() {
-	cfg := elasticsearch.Config{
-		Addresses: []string{"http://127.0.0.1:9200"},
-	}
-	es, err := elasticsearch.NewClient(cfg)
-	if err != nil {
-		panic(err)
-	}
-	EsClient = es
-}
 
 func SelectBlogMenusByUrl(url string, context context.Context) (menus []*pb.GetListReply_Data, err error) {
 	blogSearchBody := make(utils.BodyMap)
@@ -65,15 +55,19 @@ func SelectBlogMenusByUrl(url string, context context.Context) (menus []*pb.GetL
 	return menus, nil
 }
 
-func InsertBlog(menus []*pb.GetListReply_Data, context context.Context) bool {
+func InsertBlog(url string, menus []*pb.GetListReply_Data, context context.Context) error {
+	esBlogReq := &model.EsBlogReq{
+		Url:   url,
+		Menus: menus,
+	}
 	var buf bytes.Buffer
-	err := json.NewEncoder(&buf).Encode(menus)
+	err := json.NewEncoder(&buf).Encode(esBlogReq)
 	if err != nil {
-		return false
+		return err
 	}
 	res, err := EsClient.Index("blog", &buf, EsClient.Index.WithContext(context))
 	if err != nil || res.IsError() {
-		return false
+		return err
 	}
-	return true
+	return nil
 }

@@ -32,4 +32,6 @@ func TestReadBlogServer(t *testing.T) {
 	require.NotNil(t, a)
 	require.EqualValues(t, a.Addr, ":8081")
 	require.EqualValues(t, a.IxugoDomain, "localhost")
+	require.EqualValues(t, a.WangboDomain, "localhost")
+	require.EqualValues(t, a.EsAddresses, []string{"http://127.0.0.1:9200"})
 }
