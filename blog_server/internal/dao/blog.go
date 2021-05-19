@@ -5,10 +5,11 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/elastic/go-elasticsearch/v7"
 	"together/blog_server/internal/model"
 	pb "together/proto"
 	"together/utils"
+
+	"github.com/elastic/go-elasticsearch/v7"
 )
 
 var EsClient *elasticsearch.Client
