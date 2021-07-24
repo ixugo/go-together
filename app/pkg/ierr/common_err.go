@@ -10,10 +10,10 @@ import (
 var (
 	Success                = NewError(0, "成功")
 	BadRequest             = NewError(40000, "请求参数错误")
-	NotFound               = NewError(41111, "资源找不到")
-	UnauthorizedTokenError = NewError(42222, "鉴权失败，Token错误")
+	NotFound               = NewError(40001, "资源找不到")
+	UnauthorizedTokenError = NewError(40002, "鉴权失败，Token错误")
 	Server                 = NewError(50000, "服务内部错误")
-	Grpc                   = NewError(51111, "GRPC 连接失败")
+	Grpc                   = NewError(50001, "GRPC 连接失败")
 )
 
 type Error struct {
