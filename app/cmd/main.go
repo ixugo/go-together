@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -10,10 +9,14 @@ import (
 	rest "together/app/pkg/server"
 	"together/configs"
 	"together/global"
+	"together/log"
+
+	"go.uber.org/zap"
 )
 
 func main() {
 	setupConfig()
+	log.New("./logs/")
 
 	server := rest.NewServer(routers.New(),
 		rest.Port(global.AppServer.Addr),
@@ -25,13 +28,13 @@ func main() {
 	signal.Notify(exit, syscall.SIGTERM, syscall.SIGINT)
 	select {
 	case s := <-exit:
-		fmt.Printf(fmt.Sprintf("s(%s) := <-interrupt ", s.String()))
+		zap.S().Infof("s(%s) := <-interrupt ", s.String())
 	case err := <-server.Notify():
-		fmt.Printf(fmt.Sprintf(` err(%s) = <-server.Notify()`, err))
+		zap.S().Errorf(` err(%s) = <-server.Notify()`, err)
 	}
 
 	if err := server.Shutdown(); err != nil {
-		fmt.Printf(` err(%s) := server.Shutdown()`, err)
+		zap.S().Errorf(` err(%s) := server.Shutdown()`, err)
 	}
 }
 

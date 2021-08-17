@@ -1,5 +1,5 @@
 [AppServer]
-    Addr = ":8080"
+    Addr = "8080"
     RunMode="debug"
     ReadTimeout=10
     WriteTimeout=10
