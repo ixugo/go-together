@@ -1,2 +1,0 @@
-2021-08-17 15:12:36	[34mINFO[0m	cmd/main.go:33	 err(listen tcp: address ::8080: too many colons in address) = <-server.Notify()
-2021-08-17 15:13:49	[31mERROR[0m	cmd/main.go:33	 err(listen tcp :8080: bind: address already in use) = <-server.Notify()

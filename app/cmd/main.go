@@ -17,6 +17,9 @@ import (
 func main() {
 	setupConfig()
 	log.New("./logs/")
+	defer func() {
+		_ = zap.S().Sync()
+	}()
 
 	server := rest.NewServer(routers.New(),
 		rest.Port(global.AppServer.Addr),
