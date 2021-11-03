@@ -10,14 +10,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type App struct{}
+type App struct {
+	ser *service.Service
+}
 
 func (a *App) GetDefaultInfo(c *gin.Context) {
 	result := make(map[string]interface{}, 2)
 	result["projectName"] = filepath.Base(os.Args[0])
 	// 检测 grpc 链接
-	s := service.New(c.Request.Context())
-	r, err := s.SayHello("together")
+
+	r, err := a.ser.SayHello(c.Request.Context(), "together")
 	if err != nil {
 		resp.Error(c, ierr.Grpc.WithDetails(err.Error()))
 		return

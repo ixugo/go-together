@@ -5,7 +5,6 @@ import (
 )
 
 var (
-	AppServer  *configs.AppServer
 	BlogServer *configs.BlogServer
 	ImServer   *configs.BlogServer
 )

@@ -1,4 +1,4 @@
-package rest
+package server
 
 import (
 	"context"
@@ -7,54 +7,53 @@ import (
 )
 
 const (
-	readTimeout     = 20 * time.Second
-	writeTimeout    = 20 * time.Second
-	shutdownTimeout = 3 * time.Second
-	address         = ":1323"
+	defaultReadTimeout     = 10 * time.Second
+	defaultWriteTimeout    = 10 * time.Second
+	defaultAddr            = ":80"
+	defaultShutdownTimeout = 5 * time.Second
 )
 
-// Server http 服务器
 type Server struct {
 	s               *http.Server
 	notify          chan error
 	shutdownTimeout time.Duration
 }
 
-// NewServer .
-func NewServer(handle http.Handler, opts ...Option) *Server {
-	httpserver := &http.Server{
-		Addr:         address,
-		Handler:      handle,
-		ReadTimeout:  readTimeout,
-		WriteTimeout: writeTimeout,
+// NewServer 初始化并启动路由
+func NewServer(handler http.Handler, opts ...Option) *Server {
+	httpServer := &http.Server{
+		Addr:         defaultAddr,
+		Handler:      handler,
+		ReadTimeout:  defaultReadTimeout,
+		WriteTimeout: defaultWriteTimeout,
 	}
 
-	s := &Server{
-		s:               httpserver,
-		notify:          make(chan error),
-		shutdownTimeout: shutdownTimeout,
+	ser := &Server{
+		s:               httpServer,
+		notify:          make(chan error, 1),
+		shutdownTimeout: defaultShutdownTimeout,
 	}
 
 	for _, opt := range opts {
-		opt(s)
+		opt(ser)
 	}
 
-	go s.Start()
-	return s
+	go ser.start()
+	return ser
 }
 
-// Start 启动服务，调用时使用 go 关键字
-func (s *Server) Start() {
+// Start 调用时，使用 go 关键字
+func (s *Server) start() {
 	s.notify <- s.s.ListenAndServe()
 	close(s.notify)
 }
 
-// Notify 关闭通知
+// Notify 通知关闭
 func (s *Server) Notify() <-chan error {
 	return s.notify
 }
 
-// Shutdown 优雅的关闭 api
+// Shutdown 关闭 httpserver
 func (s *Server) Shutdown() error {
 	ctx, cancel := context.WithTimeout(context.Background(), s.shutdownTimeout)
 	defer cancel()

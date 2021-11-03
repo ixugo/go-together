@@ -8,7 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Blog struct{}
+type Blog struct {
+	ser *service.Service
+}
 
 func (b *Blog) GetList(c *gin.Context) {
 	url := c.Query("url")
@@ -17,8 +19,7 @@ func (b *Blog) GetList(c *gin.Context) {
 		return
 	}
 	// 处理链接
-	s := service.New(c.Request.Context())
-	data, err := s.GetList(url)
+	data, err := b.ser.GetList(c.Request.Context(), url)
 	if err != nil {
 		resp.Error(c, ierr.GetBlog.WithDetails(err.Error()))
 		return
