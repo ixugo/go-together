@@ -3,8 +3,8 @@ package main
 import (
 	"time"
 	"together/app/internal/app"
+	"together/app/pkg/logger"
 	"together/configs"
-	"together/log"
 
 	"go.uber.org/zap"
 )
@@ -14,7 +14,7 @@ func main() {
 	var cfg configs.AppServer
 	setupConfig(&cfg)
 
-	log.New("./logs/")
+	logger.New("./logs/")
 	defer func() {
 		_ = zap.S().Sync()
 	}()

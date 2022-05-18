@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"together/app/internal/middleware"
+	"together/app/internal/http/middleware"
 	"together/app/internal/service"
 	"together/configs"
 

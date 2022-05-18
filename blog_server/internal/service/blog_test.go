@@ -13,7 +13,7 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 func TestGetIxugo(t *testing.T) {
-	data := getIxugo("localhost")
+	data := getIxugo("https://blog.golang.space")
 	require.NotNil(t, data)
 }
 func TestGetWangbo(t *testing.T) {

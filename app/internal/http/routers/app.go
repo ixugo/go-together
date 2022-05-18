@@ -21,7 +21,7 @@ func (a *App) GetDefaultInfo(c *gin.Context) {
 
 	r, err := a.ser.SayHello(c.Request.Context(), "together")
 	if err != nil {
-		resp.Error(c, ierr.Grpc.WithDetails(err.Error()))
+		resp.Error(c, ierr.ErrUnknown.WithDetails(err.Error()))
 		return
 	}
 	result["GRPC"] = "OK"
