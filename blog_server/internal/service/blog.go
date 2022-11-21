@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"log"
 	"together/blog_server/internal/dao"
 	"together/global"
 	pb "together/proto"
@@ -11,21 +10,21 @@ import (
 )
 
 func getWebsite(url string) []*pb.GetListReply_Data {
-	menus, err := dao.SelectBlogMenusByUrl(url, context.Background())
-	if err != nil {
-		log.Println(err)
-		return nil
+	// menus, err := dao.SelectBlogMenusByUrl(url, context.Background())
+	// if err != nil {
+	// 	log.Println(err)
+	// 	return nil
+	// }
+	// if len(menus) == 0 {
+	switch url {
+	case global.BlogServer.IxugoDomain:
+		return getIxugo(url)
+	case global.BlogServer.WangboDomain:
+		return getWangbo(url)
 	}
-	if len(menus) == 0 {
-		switch url {
-		case global.BlogServer.IxugoDomain:
-			return getIxugo(url)
-		case global.BlogServer.WangboDomain:
-			return getWangbo(url)
-		}
-		return nil
-	}
-	return menus
+	return nil
+	// }
+	// return menus
 }
 
 func getIxugo(url string) []*pb.GetListReply_Data {
@@ -48,10 +47,10 @@ func getIxugo(url string) []*pb.GetListReply_Data {
 		})
 	})
 	a.Visit(url)
-	err := dao.InsertBlog(url, menus, context.Background())
-	if err != nil {
-		return nil
-	}
+	// err := dao.InsertBlog(url, menus, context.Background())
+	// if err != nil {
+	// 	return nil
+	// }
 	return menus
 }
 
